@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>table</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+
+
+</head>
+<body>
+
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<div class="container">
+
+    <form name="calc">
+        <table>
+              <textarea id="topRow" style="width:100%;height:50px;border: none" type="text" size=10
+                        Name="displayTop" readonly="true"></textarea>
+            <input id="immediateRow" style="width:100%;height:50px;border: none" type="text" size=12
+                   Name="display" readonly="true">
+        </table>
+    </form>
+
+    <table border="1" cellspacing="0">
+        <tr>
+            <td><input type="button" value="AC" id="clearButton" name="AC" style="color: darkorange"></td>
+            <td><input type="button" value="C" id="clear"></td>
+            <td><input type="button" value="/" class="calc-button"></td>
+            <td><input type="button" value="*" class="calc-button"></td>
+        </tr>
+
+
+        <tr>
+            <td><input type="button" value="7" class="calc-button"></td>
+            <td><input type="button" value="8" class="calc-button"></td>
+            <td><input type="button" value="9" class="calc-button"></td>
+            <td><input type="button" value="-" class="calc-button"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="4" class="calc-button"></td>
+            <td><input type="button" value="5" class="calc-button"></td>
+            <td><input type="button" value="6" class="calc-button"></td>
+            <td><input type="button" value="+" class="calc-button"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="1" class="calc-button"></td>
+            <td><input type="button" value="2" class="calc-button"></td>
+            <td><input type="button" value="3" class="calc-button"></td>
+            <td rowspan="2" style="background-color: darkorange"><input
+                    type="button" value="=" id="calcEquals"
+                    style="background-color: darkorange; height: 225px;color: white"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="%" class="calc-button"></td>
+            <td><input type="button" value="0" class="calc-button"></td>
+            <td><input type="button" value="." class="calc-button"></td>
+        </tr>
+    </table>
+</div>
+<script>
+    var endOfCalculation = false;
+    var stringDigits = '';
+    var els = document.getElementsByClassName('calc-button');
+    for (var i = 0; i < els.length; i++)
+    {
+        els[i].addEventListener('click', function (e)
+        {
+            var source = e.target || e.srcElement;
+            addToEquation(source.value);
+        }, false);
+    }
+
+    var clearAll = document.getElementById('clearButton');
+    clearAll.addEventListener('click', function ()
+    {
+        calc.display.value = '';
+        calc.displayTop.value = '';
+    });
+
+    var clr = document.getElementById('clear');
+    clr.addEventListener('click', function ()
+    {
+        calc.display.value = calc.display.value.slice(0, -1);
+        calc.displayTop.value = calc.displayTop.value.slice(0, -1);
+    });
+
+    var equals = document.getElementById('calcEquals');
+    equals.addEventListener('click', function ()
+    {
+//        calc.displayTop.value += calc.display.value;
+        executeCalculation();
+        endOfCalculation = true;
+    });
+
+    function executeCalculation()
+    {
+        calc.display.value = eval(calc.displayTop.value);
+    }
+
+    function addToEquation(char)
+    {
+        if (endOfCalculation)
+        {
+            calc.displayTop.value = calc.display.value;
+
+            if (!isOperator(char))
+            {
+                calc.display.value = '';
+                calc.displayTop.value = '';
+            }
+
+            endOfCalculation = false;
+        }
+        if (isOperator(char))
+        {
+            char = '\n' + char;
+            calc.display.value = '';
+            calc.displayTop.value = calc.displayTop.value + char;
+
+        }
+        else
+        {
+            calc.display.value += char;
+            calc.displayTop.value += char;
+
+        }
+
+        //        calc.display.value += char;
+//        if(isOperator(char))
+//        {
+//            calc.displayTop.value += calc.display.value;
+//            calc.display.value = '';
+//        }
+    }
+
+    function isOperator(char)
+    {
+        return char === '+' || char === '-' || char === '*' || char === '/' || char === '%';
+    }
+
+</script>
+
+
+</body>
+</html>

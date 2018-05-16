@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        input[type=button] {
+            color: white;
+            border: 0;
+            display: block;
+            height: 110px;
+            width: 90px;
+            font-family: Broadway;
+            font-size: 200%;
+            box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
+            /*border-radius: 3px;*/
+            margin: 0 7px 11px 0;
+            transition: all 0.2s ease;
+        }
+
+        td {
+        }
+
+        #topRow {
+            height: 50px;
+        }
+
+        input[type=text] {
+            color: black;
+            font-size: 300%;
+            height: 100px;
+            /*border-radius: 5px;*/
+        }
+
+        #calculator {
+            width: 425px;
+            height: auto;
+            margin: 100px auto;
+            padding: 20px 20px 9px;
+            background: #9dd2ea;
+            background: linear-gradient(#9dd2ea, #8bceec);
+            border-radius: 3px;
+            box-shadow: 0px 4px #009de4, 0px 10px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        p {
+            color: grey;
+        }
+
+        #clear {
+            height: 2px;
+            width: 2px;
+            background-color: red;
+        }
+    </style>
+
+</head>
+
+
+<body background="background.jpg">
+<!--Trying to create a calculator that display the previous typed number at the top
+-->
+
+<div id=calculator>
+
+
+    <h1>CASIO</h1>
+
+    <br/>
+
+
+    <form Name="calc">
+        <table>
+            <tr>
+                <td colspan=4><textarea id="topRow" style="width:100%;height:100px;background-color:#F0FFFF"
+                                        type="text" size=8 Name="displayTop" readonly="true"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan=4><input id="immediateRow" style="background-color:#F0FFFF; overflow: scroll"
+                                     type="text" size=12 Name="display" readonly="true"></td>
+            </tr>
+
+        </table>
+        <br>
+
+
+        <table>
+            <tr>
+                <td><input style="height:50px; background-color:#F08080" type=button value="C" id="clearButton"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="1" class="calc-button"></td>
+                <td><input type="button" value="2" class="calc-button"></td>
+                <td><input type="button" value="3" class="calc-button"></td>
+                <td><input type="button" value="+" class="calc-button"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="4" class="calc-button"></td>
+                <td><input type="button" value="5" class="calc-button"></td>
+                <td><input type="button" value="6" class="calc-button"></td>
+                <td><input type="button" value="-" class="calc-button"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="7" class="calc-button"></td>
+                <td><input type="button" value="8" class="calc-button"></td>
+                <td><input type="button" value="9" class="calc-button"></td>
+                <td><input type="button" value="*" class="calc-button"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="0" class="calc-button"></td>
+                <td><input type="button" value="." class="calc-button"></td>
+                <td><input type="button" value="=" id="calcEquals"></td>
+                <td><input type="button" value="/" class="calc-button"></td>
+            </tr>
+        </table>
+    </form>
+
+
+</div>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    //    var endOfCalculation = false;
+    //    var stringDigits = '';
+    //    var els = document.getElementsByClassName('calc-button');
+    //    for(var i = 0;i < els.length;i++)
+    //    {
+    //        els[i].addEventListener('click', function(e) {
+    //            var source = e.target || e.srcElement;
+    //
+    //            addToEquation(source.value);
+    //        }, false);
+    //    }
+    //
+    //    var clearEl = document.getElementById('clearButton');
+    //    clearEl.addEventListener('click', function() {
+    //        calc.display.value = '';
+    //        calc.displayTop.value = '';
+    //        stringDigits = '';
+    //    });
+    //
+    //    var equalsEl = document.getElementById('calcEquals');
+    //    equalsEl.addEventListener('click', function()
+    //    {
+    //        endOfCalculation = true;
+    //        stringDigits = '';
+    //        executeCalculation();
+    //    });
+    //
+    //    function executeCalculation() {
+    //        calc.display.value = ("=" + eval(calc.displayTop.value));
+    //    }
+    //
+    //
+    //    function addToEquation(char)
+    //    {
+    //        if(endOfCalculation)
+    //        {
+    //            calc.display.value = '';
+    //            if(!isOperator(char))
+    //            {
+    //                calc.display.value += char;
+    //            }
+    //            endOfCalculation = false;
+    //        }
+    //
+    //        // If operator is entered then add new-line character to character
+    //        if (isOperator(char))
+    //        {
+    //            char = "\n" + char;
+    //            calc.display.value = '';
+    //            calc.displayTop.value += char;
+    //            stringDigits += char;
+    //        }
+    //        else
+    //            {
+    //            calc.display.value += char;
+    //            calc.displayTop.value += char;
+    //            stringDigits += char;
+    //        }
+    //        if (isOperator(char))
+    //        {
+    //            char = "\n" + char;
+    //            stringDigits += '\n';
+    //            $('topRow').val(json_encode(stringDigits));
+    //            console.log(stringDigits);
+    //            calc.display.value = '';
+    //        }
+    //    }
+    //
+    //    function isOperator(char)
+    //    {
+    //        return char === '+' || char === '-' || char === '*' || char === '/';
+    //    }
+    var endOfCalculation = false;
+    var stringDigits = '';
+    var els = document.getElementsByClassName('calc-button');
+    for (var i = 0; i < els.length; i++) {
+        els[i].addEventListener('click', function (e) {
+            var source = e.target || e.srcElement;
+
+            addToEquation(source.value);
+        }, false);
+    }
+
+    var clearEl = document.getElementById('clearButton');
+    clearEl.addEventListener('click', function () {
+        calc.display.value = '';
+        calc.displayTop.value = '';
+    });
+
+    var equalsEl = document.getElementById('calcEquals');
+    equalsEl.addEventListener('click', function () {
+        calc.displayTop.value += calc.display.value;
+        executeCalculation();
+        endOfCalculation = true;
+    });
+
+    function executeCalculation() {
+        calc.display.value = eval(calc.displayTop.value);
+    }
+
+
+    function addToEquation(char) {
+        if (endOfCalculation) {
+            calc.displayTop.value = '';
+
+            if (!isOperator(char)) {
+                calc.display.value = '';
+                calc.displayTop.value = '';
+            }
+
+            endOfCalculation = false;
+        }
+        if (isOperator(char)) {
+            char = "\n" + char;
+            calc.display.value = '';
+            calc.displayTop.value += char;
+            stringDigits += char;
+        }
+        else {
+            calc.display.value += char;
+            calc.displayTop.value += char;
+            stringDigits += char;
+        }
+        if (isOperator(char)) {
+            char = "\n" + char;
+            stringDigits += '\n';
+            $('topRow').val(json_encode(stringDigits));
+            console.log(stringDigits);
+            calc.display.value = '';
+        }
+
+        calc.display.value += char;
+
+        if (isOperator(char)) {
+            calc.displayTop.value += calc.display.value;
+            calc.display.value = '';
+        }
+    }
+
+    function isOperator(char) {
+        return char === '+' || char === '-' || char === '*' || char === '/';
+    }
+
+
+</script>
+
+</body>
+</html>

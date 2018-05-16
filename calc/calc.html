@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calc</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+          crossorigin="anonymous">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"-->
+    <!--integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"-->
+    <!--crossorigin="anonymous"></script>-->
+    <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"-->
+    <!--integrity="sha384-u/bQvRA/1bobcXlcEYpsEdFVK/vJs3+T+nXLsBYJthmdBuavHvAW6UsmqO2Gd/F9"-->
+    <!--crossorigin="anonymous"></script>-->
+    <style>
+        .screen {
+            height: 80px;
+            border-radius: 10px;
+            padding: 10px;
+
+
+            font-weight: bold;
+        }
+        #clearall
+        {
+            color: red;
+        }
+        button
+        {
+            height: 50px;
+            width: 50px;
+            /*margin: 10px 0;*/
+            background-color: white;
+            border-right: solid 2px #EAEBEC !important;
+            border-bottom: solid 2px #EAEBEC !important;
+            transition: all 0.2s ease-in-out !important;
+
+        }
+        .col-centered
+        {
+
+            margin: 25px auto;
+        }
+        .row
+        {
+            display: block !important;
+
+        }
+        .bgclr
+        {
+            background-color: ghostwhite;
+        }
+        button img
+        {
+            height: 25px;
+            width: 25px;
+        }
+        .mrgn
+        {
+            margin-top: -50px;
+            margin-left: -75px;
+
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="container text-center">
+    <div class="row">
+        <div class="col-xs-3 col-centered text-center">
+            <div>
+                <div class="row " id="result">
+                    <form name="calc">
+                        <input type="text" class="screen text-right" name="result" readonly>
+                    </form>
+                </div>
+                <div class="row">
+                    <button id="clearall" class="" type="button" value="c" onclick="calc.result.value = ''">AC</button>
+                    <button id="clear" class="btn" type="button" value="cc" onclick="calc.result.value = calc.result.value.slice(0,-1)">
+                        <img src="delete-512.png"> </button>
+                    <button id="division" class="btn" type="button" value="/" onclick="calc.result.value += '/'">÷</button>
+                    <button id="multiply" class="btn" type="button" value="*" onclick="calc.result.value += '*'">x</button>
+                </div>
+                <div class="row">
+                    <button id="7" class="btn" type="button" value="7" onclick="calc.result.value +=7"> 7 </button>
+                    <button id="8" class="btn" type="button" value="8" onclick="calc.result.value +=8"> 8 </button>
+                    <button id="9" class="btn" type="button" value="9" onclick="calc.result.value +=9"> 9 </button>
+                    <button id="substract" class="btn" type="button" value="-" onclick="calc.result.value += '-'"> - </button>
+                </div>
+                <div class="row">
+                    <button id="4" class="btn" type="button" value="4" onclick="calc.result.value +=4"> 4 </button>
+                    <button id="5" class="btn" type="button" value="5" onclick="calc.result.value +=5"> 5 </button>
+                    <button id="6" class="btn" type="button" value="6" onclick="calc.result.value +=6"> 6 </button>
+                    <button id="addition" class="btn" type="button" value="+" onclick="calc.result.value += '+'"> + </button>
+                </div>
+                <div class="row">
+
+                    <button id="1" class="btn" type="button" value="1" onclick="calc.result.value +=1" style="margin-top: -50px"> 1 </button>
+                    <button id="2" class="btn" type="button" value="2" onclick="calc.result.value +=2" style="margin-top: -50px"> 2 </button>
+                    <button id="3" class="btn" type="button" value="3" onclick="calc.result.value +=3" style="margin-top: -50px"> 3 </button>
+                    <button id="equals" class="btn" type="button" value="=" style="height: 115px"
+                            onclick="calc.result.value = eval(calc.result.value)" > = </button>
+
+
+                </div>
+                <div  class="row mrgn">
+                    <button id="modulo" class="btn" type="button" value="%" onclick="calc.result.value += '%'"> % </button>
+                    <button id="0" class="btn" type="button" value="0" onclick="calc.result.value += '0'" > 0 </button>
+                    <button id="." class="btn" type="button" value="." onclick="calc.result.value += '.'"> . </button>
+                    <!--<button id="equals" class="btn" type="button" value="="-->
+                    <!--onclick="calc.result.value = eval(calc.result.value)" > = </button>-->
+                </div>
+                <div class="row">
+
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+</div>
+</body>
+</html>

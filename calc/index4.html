@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        input[type=button] {
+            color:white;
+            border:0;
+            display:block;
+            height:110px;
+            width: 90px;
+            font-family: Broadway;
+            font-size:200%;
+            box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
+            /*border-radius: 3px;*/
+            margin: 0 7px 11px 0;
+            transition: all 0.2s ease;
+        }
+        td{
+
+
+
+
+        }
+
+        #topRow {
+            height: 50px;
+
+        }
+
+        input[type=text] {
+            color:black;
+            font-size:300%;
+            height:100px;
+            /*border-radius: 5px;*/
+
+
+        }
+        #calculator {
+            width: 425px;
+            height: auto;
+
+            margin: 100px auto;
+            padding: 20px 20px 9px;
+
+            background: #9dd2ea;
+            background: linear-gradient(#9dd2ea, #8bceec);
+            border-radius: 3px;
+            box-shadow: 0px 4px #009de4, 0px 10px 15px rgba(0, 0, 0, 0.2);
+
+        }
+
+        p{
+            color:grey;
+        }
+
+        #clear{
+            height:2px;
+            width:2px;
+            background-color: red;
+        }
+
+    </style>
+
+</head>
+
+
+<body background="background.jpg">
+<!--Trying to create a calculator that display the previous typed number at the top
+-->
+
+<div  id=calculator>
+
+
+        <h1>CASIO</h1>
+
+        <br/>
+
+
+        <form Name="calc">
+            <table>
+                <tr>
+                    <td colspan=4><input id="topRow" style="background-color:#F0FFFF" type="text" size=12 Name="displayTop" readonly="true"></td>
+
+                </tr>
+                <tr>
+                    <td colspan=4><input id="immediateRow" style="background-color:#F0FFFF; overflow: scroll" type="text" size=12 Name="display" readonly="true" ></td>
+                </tr>
+                <tr>
+                    <td colspan=4><input id="topBottom" style="background-color:#F0FFFF" type="text" size=12 Name="displayBottom" readonly="true"></td>
+                </tr>
+            </table>
+            <br>
+
+
+        <table>
+            <tr>
+
+                <td><input style="height:50px; background-color:#F08080" type=button value="C" id="clearButton" name="btn" </td>
+            </tr>
+            <tr>
+                <td><input type="button" value="1" class="calc-button"></td>
+                <td><input type="button" value="2" class="calc-button"></td>
+                <td><input type="button" value="3" class="calc-button"></td>
+                <td><input type="button" value="+" class="calc-button"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="4" class="calc-button"></td>
+                <td><input type="button" value="5" class="calc-button"></td>
+                <td><input type="button" value="6" class="calc-button"></td>
+                <td><input type="button" value="-" class="calc-button"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="7" class="calc-button"></td>
+                <td><input type="button" value="8" class="calc-button"></td>
+                <td><input type="button" value="9" class="calc-button"></td>
+                <td><input type="button" value="*" class="calc-button"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="0" class="calc-button"></td>
+                <td><input type="button" value="." class="calc-button"></td>
+                <td><input type="button" value="=" id="calcEquals"></td>
+                <td><input type="button" value="/" class="calc-button"></td>
+            </tr>
+        </table>
+        </form>
+
+
+</div>
+
+<script>
+    var endOfCalculation = false;
+    var els = document.getElementsByClassName('calc-button');
+    for(var i = 0;i < els.length;i++) {
+        els[i].addEventListener('click', function(e)
+        {
+            var source = e.target || e.srcElement;
+
+            addToEquation(source.value);
+        }, false);
+    }
+
+    var clearEl = document.getElementById('clearButton');
+    clearEl.addEventListener('click', function() {
+        document.calc.display.value = '';
+        document.calc.displayTop.value = '';
+        document.calc.displayBottom.value = '';
+
+    });
+
+    var equalsEl = document.getElementById('calcEquals');
+    equalsEl.addEventListener('click', function() {
+        document.calc.displayTop.value += document.calc.display.value;
+
+        executeCalculation();
+        endOfCalculation = true;
+    });
+
+    function executeCalculation() {
+        document.calc.displayBottom.value = eval(document.calc.displayTop.value);
+        document.calc.displayTop.value = document.calc.displayBottom.value;
+    }
+
+
+    function addToEquation(char) {
+        if(endOfCalculation) {
+            document.calc.displayTop.value = '';
+
+            if(!isOperator(char)) {
+                document.calc.display.value = '';
+                document.calc.displayTop.value = '';
+            }
+
+            endOfCalculation = false;
+        }
+
+        document.calc.display.value += char;
+
+        if(isOperator(char)) {
+            var count = 1 ;
+            if(count === 1)
+            {
+
+                document.calc.displayTop.value += document.calc.display.value;
+                document.calc.displayBottom.value = '';
+                count++;
+            }
+            else
+            {
+                document.calc.displayTop.value += document.calc.displayBottom.value;
+                document.calc.display.value = '';
+            }
+
+
+        }
+    }
+
+    function isOperator(char) {
+        return char === '+' || char === '-' || char === '*' || char === '/';
+    }
+
+
+</script>
+
+</body>
+</html>
